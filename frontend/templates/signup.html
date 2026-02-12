@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up | TechHub{% endblock %}
+
+{% block content %}
+<section class="container login-section">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="login-card">
+
+        <h2 class="text-center fw-bold mb-4">Sign Up for EventIQ</h2>
+
+
+
+        <form id="signupForm" method="POST" enctype="multipart/form-data">
+
+            <!-- Host Toggle -->
+        <div class="mb-4">
+          <div class=" form-switch prize-toggle">
+            <input class="form-check-input " type="checkbox" id="isHost" name="is_host">
+            <label class="form-check-label fw-bold" for="isHost">
+              Are you a host / company?
+            </label>
+          </div>
+        </div>
+
+<!--          <div class="mb-3">-->
+<!--          <div class="prize-toggle">-->
+<!--                <label class="toggle-label" for="isHost">-->
+<!--                    <input type="checkbox" id="isHost" name="is_host"/>-->
+<!--                    <span class="toggle-slider"></span>-->
+<!--                </label>-->
+<!--                <span class="toggle-text">Are you a host / company?</span>-->
+<!--            </div>-->
+<!--        </div>-->
+          <!-- Full Name -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Full Name</label>
+            <input type="text" class="form-control login-input"
+                   name="full_name" placeholder="Enter your full name" required>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Email Address</label>
+            <input type="email" class="form-control login-input"
+                   name="email" placeholder="Enter your email" required>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Profile Description</label>
+            <textarea class="form-control login-input" rows="3"
+              name="description"
+              placeholder="e.g. Information Technology Student passionate about web and AI"></textarea>
+          </div>
+
+          <!-- College (User only) -->
+          <div id="collegeSection" class="mb-3">
+            <label class="form-label fw-bold">College / University</label>
+            <input type="text" class="form-control login-input"
+                   name="college" placeholder="e.g. ABC University">
+          </div>
+
+          <!-- Course & Year (User only) -->
+          <div id="courseYearSection" class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Course</label>
+              <select class="form-select login-input" name="course">
+                <option value="">Select Course</option>
+                <option>Bachelor's Degree</option>
+                <option>Master's Degree</option>
+                <option>Diploma</option>
+                <option>PhD</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Current Year</label>
+              <select class="form-select login-input" name="year">
+                <option value="">Select Year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- HOST FIELDS -->
+          <div id="hostFields" style="display:none;">
+
+            <h5 class="fw-bold mb-3">Host / Company Details</h5>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Company Name</label>
+              <input type="text" class="form-control login-input"
+                     name="company_name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Company Logo</label>
+              <input type="file" class="form-control login-input"
+                     name="company_logo" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Official Website</label>
+              <input type="url" class="form-control login-input"
+                     name="website">
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">City</label>
+                <input type="text" class="form-control login-input"
+                       name="city">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">State</label>
+                <input type="text" class="form-control login-input"
+                       name="state">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Skills (User only) -->
+          <div id="skillsSection" class="mb-3">
+            <label class="form-label fw-bold">Skills</label>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="JavaScript">
+                  <label class="form-check-label">JavaScript</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="Python">
+                  <label class="form-check-label">Python</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="Java">
+                  <label class="form-check-label">Java</label>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="React">
+                  <label class="form-check-label">React</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="Flask">
+                  <label class="form-check-label">Flask</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="skills" value="Blockchain">
+                  <label class="form-check-label">Blockchain</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control login-input"
+                     id="password" name="password" required>
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">Confirm Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control login-input"
+                     id="confirmPassword" required>
+              <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div class="mb-3">
+            <div class="g-recaptcha"
+                 data-sitekey="6LfB90AsAAAAAN3TtTy8tRTFLbtLsD1VaEs5Pib2"></div>
+          </div>
+
+          <button type="submit" class="btn login-btn w-100">
+            Create Account
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+<script>
+document.getElementById("togglePassword").onclick = () => {
+  const p = document.getElementById("password");
+  p.type = p.type === "password" ? "text" : "password";
+};
+
+document.getElementById("toggleConfirmPassword").onclick = () => {
+  const p = document.getElementById("confirmPassword");
+  p.type = p.type === "password" ? "text" : "password";
+};
+</script>
+{% endblock %}

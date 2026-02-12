@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hosts</title>
+</head>
+<body>
+    <h1>Hosts List</h1>
+
+    {% if hosts %}
+        <ul>
+            {% for host in hosts %}
+                <li>
+                    {{ host.id }} | {{ host.name }} | {{ host.email }}
+                    <a href="{{ url_for('edit_host', id=host.id) }}">Edit</a>
+                    <a href="{{ url_for('delete_host', id=host.id) }}"
+                       onclick="return confirm('Are you sure?')">
+                       Delete
+                    </a>
+
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hosts found.</p>
+    {% endif %}
+
+</body>
+</html>

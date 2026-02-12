@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Host</title>
+</head>
+<body>
+    <h1>Edit Host</h1>
+
+    <form method="POST">
+        <input type="text" name="name" value="{{ host.name }}" required><br><br>
+        <input type="email" name="email" value="{{ host.email }}" required><br><br>
+        <input type="password" name="password" value="{{ host.password }}" required><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

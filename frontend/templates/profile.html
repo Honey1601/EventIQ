@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- PROFILE HEADER -->
+
+
+<section class="container profile-header">
+    <div class="profile-hero">
+        <div class="row align-items-center">
+            <div class="col-lg-3 text-center">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="profile-info">
+                    <h1 class="profile-name">{{user.full_name}}</h1>
+                    <p class="profile-title">{{user.description}}</p>
+                    <div class="profile-meta">
+            <span class="meta-item">
+              <i class="fas fa-university"></i>
+              {{user.college}}
+            </span>
+                        <span class="meta-item">
+              <i class="fas fa-graduation-cap"></i>
+              {{user.course}} - {{user.year}}
+            </span>
+                        <span class="meta-item">
+              <i class="fas fa-calendar"></i>
+              Joined At {{user.created_at.date()}}
+            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROFILE STATS -->
+<section class="container profile-stats-section">
+    <div class="row g-4">
+
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-info">
+                        <strong>{{hackathon_attended}}</strong>
+                        <span>Hackathons</span>
+                    </div>
+                </div>
+
+            </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-info">
+                    <strong>{{workshop_attended}}</strong>
+                    <span>Workshops</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="stat-info">
+                    <strong>{{meetup_attended}}</strong>
+                    <span>MeetUp</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <strong>{{bootcamp_attended}}</strong>
+                    <span>Bootcamp</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROFILE CONTENT -->
+<section class="container profile-content">
+    <div class="row g-4">
+
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-8">
+
+            <!-- HACKATHON PARTICIPATION -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-trophy"></i> Hackathon Participation</h3>
+                </div>
+                <div class="participation-list">
+
+                        {% if list_hackathon %}
+                        {% for event in list_hackathon %}
+                          <div class="participation-item row">
+                            <div class="participation-details col-10">
+                                <h5>{{ event.title }}</h5>
+                                <p>{{event.description}}</p>
+                                <div class="participation-meta">
+                                    <span><i class="fas fa-calendar"></i>{{ event.start_date }}</span>
+                                    <span><i class="fas fa-users"></i>{{event.attending}} Attended</span>
+                                    <span><i class="fas fa-trophy"></i> {{event.first_prize}} Prize</span>
+                                </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                    {% else %}
+                      <p>No Hackathon Participation Found.</p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- WORKSHOPS ATTENDED -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-chalkboard-teacher"></i> Workshops Attended</h3>
+                </div>
+
+                <div class="workshop-grid">
+                    {% if list_workshop %}
+                        {% for event in list_workshop %}
+                          <div class="workshop-item">
+                            <div class="certificate-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="workshop-info">
+                                <h6>{{ event.title }}</h6>
+                                <p>{{event.attending}} Attended </p>
+                                <span class="workshop-date">{{event.start_date}}</span>
+                            </div>
+                          </div>
+                        {% endfor %}
+                    {% else %}
+                      <p>No workshop Participation Found.</p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-4">
+
+            <!-- MEETUP -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-certificate"></i> MeetUp Visit</h3>
+                </div>
+
+                <div class="certificate-list">
+                    {% if list_meetup %}
+                        {% for event in list_meetup %}
+                        <div class="certificate-item">
+                            <div class="certificate-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="certificate-info">
+                                <h6>{{ event.title }}</h6>
+                                <p>{{event.description}}</p>
+                                <span class="certificate-date">{{event.start_date}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                      <p>No Meetup Attended Found.</p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- Bootcamp Attended -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-book"></i> Bootcamp Attended</h3>
+                </div>
+
+                <div class="course-list">
+                    {% if list_bootcamp %}
+                        {% for event in list_bootcamp %}
+                        <div class="course-item">
+                            <div class="course-progress">
+                                <div class="progress-circle completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="course-info">
+                                <h6>{{event.title}}</h6>
+                                <p>{{event.description}}</p>
+                                <span class="course-date">{{event.start_date}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                      <p>No Meetup Attended Found.</p>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- SKILLS -->
+            <div class="profile-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-code"></i> Skills</h3>
+                </div>
+
+                <div class="skills-tags">
+                    {% for skill in (user.skills).split(',') %}
+                        <span class="skill-tag">{{skill}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+    <div class="container">
+        <div class="footer-grid">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+                <h4>TechHub</h4>
+                <p>
+                    Discover hackathons, workshops, meetups, and bootcamps.
+                    Learn, build, and grow with the tech community.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Events -->
+            <div class="footer-col">
+                <h6>Events</h6>
+                <ul>
+                    <li><a href="#">Hackathons</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Meetups</a></li>
+                    <li><a href="#">Bootcamps</a></li>
+                </ul>
+            </div>
+
+            <!-- Community -->
+            <div class="footer-col">
+                <h6>Community</h6>
+                <ul>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Developers</a></li>
+                    <li><a href="#">Organizers</a></li>
+                    <li><a href="#">Partners</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-col">
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h6>Support</h6>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2026 EventIQ. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}
+
+
+

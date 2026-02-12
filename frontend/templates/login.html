@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Login | TechHub{% endblock %}
+
+{% block content %}
+<!-- LOGIN SECTION -->
+<section class="container login-section">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="login-card">
+
+        <h2 class="text-center fw-bold mb-4">Login to EventIQ</h2>
+
+        <!-- LOGIN FORM -->
+        <form method="POST" action="{{ url_for('login') }}">
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label fw-bold">Email Address</label>
+            <input
+              type="email"
+              class="form-control login-input"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            >
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label fw-bold">Password</label>
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control login-input"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              >
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- reCAPTCHA -->
+          <div class="mb-3">
+            <div class="g-recaptcha"
+                 data-sitekey="6LfB90AsAAAAAN3TtTy8tRTFLbtLsD1VaEs5Pib2"></div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn login-btn w-100">
+            Login
+          </button>
+        </form>
+
+        <!-- Extra links -->
+        <div class="text-center mt-3">
+          <a href="#" class="text-decoration-none">Forgot password?</a>
+        </div>
+
+        <div class="text-center mt-2">
+          <span>
+            Don't have an account?
+            <a href="{{ url_for('signup') }}" class="text-decoration-none fw-bold">
+              Sign up
+            </a>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function togglePassword() {
+  const password = document.getElementById('password');
+  const icon = document.querySelector('#togglePassword i');
+
+  if (password.type === 'password') {
+    password.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    password.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}
+
+document.getElementById('togglePassword').addEventListener('click', togglePassword);
+</script>
+{% endblock %}

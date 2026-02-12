@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- MEETUPS HEADER -->
+<section class="container mt-5">
+  <div class="text-center">
+    <h1 class="fw-bold">All Meetups</h1>
+    <p>Connect with like-minded developers in your area</p>
+  </div>
+</section>
+
+<!-- SEARCH AND FILTERS -->
+<section class="container mt-4">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <input type="text" id="searchInput" class="form-control search-input" placeholder="Search meetups...">
+    </div>
+    <div class="col-md-4">
+      <select id="cityFilter" class="form-select">
+        <option value="">All Cities</option>
+        <option value="Downtown">Downtown</option>
+        <option value="Innovation Center">Innovation Center</option>
+        <option value="Tech Park">Tech Park</option>
+        <option value="Online">Online</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select id="topicFilter" class="form-select">
+        <option value="">All Topics</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="AI">AI</option>
+        <option value="Data Science">Data Science</option>
+        <option value="Web Development">Web Development</option>
+        <option value="Blockchain">Blockchain</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- MEETUPS GRID -->
+<section class="container mt-4">
+  <div class="row g-4" id="meetupsContainer">
+    <!-- Meetup cards will be populated by JS -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h4>TechHub</h4>
+        <p>
+          Discover hackathons, workshops, meetups, and bootcamps.
+          Learn, build, and grow with the tech community.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Events -->
+      <div class="footer-col">
+        <h6>Events</h6>
+        <ul>
+          <li><a href="hackathon.html">Hackathons</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="meetup.html">Meetups</a></li>
+          <li><a href="bootcamp.html">Bootcamps</a></li>
+        </ul>
+      </div>
+      <!-- Community -->
+      <div class="footer-col">
+        <h6>Community</h6>
+        <ul>
+          <li><a href="#">Students</a></li>
+          <li><a href="#">Developers</a></li>
+          <li><a href="#">Organizers</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <!-- Resources -->
+      <div class="footer-col">
+        <h6>Resources</h6>
+        <ul>
+          <li><a href="#">Blogs</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+      <!-- Support -->
+      <div class="footer-col">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2026 EventIQ. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="static/js/meetup.js"></script>
+{% endblock %}
+
+

@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- WORKSHOP HERO -->
+<section class="container hero_h mt-5">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <h1 class="fw-bold display-5">{{ event.title }}</h1>
+      <p class="text-muted mt-3">{{ event.description }}</p>
+      <div class="mt-4">
+        <span class="interactive-badge date-badge"><i class="bi bi-calendar-event me-1"></i>{{ event.start_date }} - {{ event.end_date }}</span>
+        <span class="interactive-badge location-badge"><i class="bi bi-globe me-1"></i>{{ event.mode }}</span>
+        <span class="interactive-badge participants-badge"><i class="bi bi-people-fill me-1"></i>{{event.attending}} enrolled</span>
+      </div>
+      <div class="countdown-timer">
+        <h5>Workshop Starts In</h5>
+        <div class="countdown-display">
+          <div class="countdown-item">
+            <span id="days">--</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hours">--</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes">--</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds">--</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        {% if already_registered %}
+          <button class="register-btn" disabled>
+            <span>✔ Already Registered</span>
+          </button>
+
+        {% elif event.max_participants and event.attending >= event.max_participants %}
+          <button class="register-btnr" disabled>
+            <span>Event Full</span>
+          </button>
+
+        {% else %}
+          <form method="POST" action="{{ url_for('participate_event', event_id=event.id) }}">
+            <button class="register-btn">
+              <span>
+                {% if event.registration_fee and event.registration_fee > 0 %}
+                  <strong>Registration Fee:</strong> ₹{{ event.registration_fee }}
+                {% else %}
+                  <strong>Free Event</strong>
+                {% endif %}
+              </span>
+            </button>
+          </form>
+        {% endif %}
+        <a class="btn btn-outline-dark rounded-pill px-4 ms-2" href="/workshop">Back to Workshops</a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center">
+      <div class="image-placeholder" style="height: 200px;">
+          <img src="{{ url_for('static', filename='uploads/company_logos/' + event.banner_image) }}"
+               alt="Workshop Image"
+               class="img-fluid"
+          >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR INFO -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-person-circle me-2"></i>Instructor</h4>
+    <div class="d-flex align-items-center">
+      <div class="me-3">
+        <div style="width: 60px; height: 60px; background: var(--blue-electric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">SJ</div>
+      </div>
+      <div>
+        <h5 class="mb-1">Sarah Johnson</h5>
+        <p class="mb-1 text-muted">Senior React Developer at TechCorp</p>
+        <div>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-fill text-warning"></i>
+          <i class="bi bi-star-half text-warning"></i>
+          <span class="ms-2">4.8 (234 reviews)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOP DETAILS -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-info-circle me-2"></i>Workshop Details</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <p><i class="bi bi-clock me-2"></i><strong>Duration:</strong> 4 hours</p>
+        <p><i class="bi bi-calendar me-2"></i><strong>Date:</strong> {{ event.start_date }}</p>
+        <p><i class="bi bi-globe me-2"></i><strong>Format:</strong> Live {{ event.mode }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><i class="bi bi-people me-2"></i><strong>Max Participants:</strong> {{event.max_participants}}</p>
+        <p><i class="bi bi-chat-dots me-2"></i><strong>Language:</strong> English</p>
+        <p><i class="bi bi-certificate me-2"></i><strong>Certificate:</strong> Provided</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-lightbulb me-2"></i>What You'll Learn</h4>
+    <ul class="list-unstyled">
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Advanced React Hooks and Custom Hooks</li>
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Performance optimization techniques</li>
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Render props and Higher-Order Components</li>
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Context API and state management</li>
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Code splitting and lazy loading</li>
+      <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Error boundaries and testing strategies</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PREREQUISITES -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-tools me-2"></i>Prerequisites</h4>
+    <div class="d-flex flex-wrap">
+            {% for skill in (event.skills).split(',') %}
+                <span class="skill-badge"><i class="bi bi-robot me-1"></i>{{skill}}</span>
+            {% endfor %}
+    </div>
+    <p class="mt-3"><i class="bi bi-info-circle me-2 text-primary"></i>Basic knowledge of React and JavaScript is required. No advanced experience needed.</p>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-clock-history me-2"></i>Workshop Schedule</h4>
+    <div class="timeline">
+      <div class="timeline-item">
+        <i class="bi bi-play-circle me-2"></i><strong>9:00 AM - 10:30 AM:</strong> Introduction to Advanced Patterns
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-play-circle me-2"></i><strong>10:30 AM - 11:00 AM:</strong> Coffee Break
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-play-circle me-2"></i><strong>11:00 AM - 12:30 PM:</strong> Performance Optimization
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-play-circle me-2"></i><strong>12:30 PM - 1:00 PM:</strong> Lunch Break
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-play-circle me-2"></i><strong>1:00 PM - 2:30 PM:</strong> Advanced State Management
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT WORKSHOP -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-info-circle me-2"></i>About This Workshop</h4>
+    <p><i class="bi bi-lightbulb me-2 text-warning"></i>This comprehensive workshop dives deep into advanced React patterns that every professional React developer should know. From performance optimization to complex state management, you'll learn practical techniques used in production applications.</p>
+    <p>Through hands-on exercises and real-world examples, you'll gain the confidence to tackle complex React applications and write more maintainable, performant code.</p>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-question-circle me-2"></i>FAQs</h4>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            <i class="bi bi-laptop me-2"></i>Do I need to bring my own computer?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Yes, please bring your laptop with Node.js and a code editor installed.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            <i class="bi bi-record-circle me-2"></i>Will the workshop be recorded?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Yes, recordings will be available to all participants for 30 days after the workshop.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            <i class="bi bi-chat-dots me-2"></i>Can I ask questions during the workshop?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Absolutely! Q&A sessions are included throughout the workshop.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h4>TechHub</h4>
+        <p>
+          Discover hackathons, workshops, meetups, and bootcamps.
+          Learn, build, and grow with the tech community.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Events -->
+      <div class="footer-col">
+        <h6>Events</h6>
+        <ul>
+          <li><a href="hackathon.html">Hackathons</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="meetup.html">Meetups</a></li>
+          <li><a href="bootcamp.html">Bootcamps</a></li>
+        </ul>
+      </div>
+      <!-- Community -->
+      <div class="footer-col">
+        <h6>Community</h6>
+        <ul>
+          <li><a href="#">Students</a></li>
+          <li><a href="#">Developers</a></li>
+          <li><a href="#">Organizers</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <!-- Resources -->
+      <div class="footer-col">
+        <h6>Resources</h6>
+        <ul>
+          <li><a href="#">Blogs</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+      <!-- Support -->
+      <div class="footer-col">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2026 EventIQ. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Countdown Timer
+function updateCountdown() {
+  const targetDate = new Date('2024-03-15T09:00:00').getTime();
+  const now = new Date().getTime();
+  const difference = targetDate - now;
+
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  } else {
+    document.querySelector('.countdown-timer h5').textContent = 'Workshop Started!';
+    document.querySelector('.countdown-display').style.display = 'none';
+  }
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Add click handlers for interactive elements
+document.querySelectorAll('.skill-badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 150);
+    }, 100);
+  });
+});
+
+document.querySelectorAll('.interactive-badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 150);
+    }, 100);
+  });
+});
+</script>
+{% endblock %}
+
+

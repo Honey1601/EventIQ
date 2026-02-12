@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+
+<!--this is page is to show particiated user event -->
+
+<section class="container hero_h mt-5">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <h1 class="fw-bold display-5 hero-title">{{ event.title | title }}</h1>
+        <p class="hero-subtitle mt-3">
+                {{ event.description }}
+        </p>
+      <div class="mt-4">
+        <span class="simple-tag px-3"><i class="bi bi-calendar-event me-1"></i>{{ event.start_date }} - {{ event.end_date }}</span>
+          <span class="simple-tag px-3">{{ event.mode }}</span>
+        <span class="simple-tag px-3"><i class="bi bi-people-fill me-1"></i>{{event.attending}} registered</span>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center">
+      <div class="image-placeholder" style="height: 200px;">
+          <img src="{{ url_for('static', filename='uploads/company_logos/' + event.banner_image) }}"
+           alt="Hackathon Image"
+           class="img-fluid rounded w-75">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPATION DETAILS -->
+<div class="profile-section container  mt-5">
+    <div class="section-header">
+        <h3><i class="fas fa-trophy"></i> Participated User</h3>
+    </div>
+    <div class="participation-list">
+        {% if participants %}
+            {% for user in participants %}
+              <div class="participation-item">
+                  <a href="#" class="card-link">
+                        <div class="participation-details">
+                            <h5>{{ user.full_name | title  }}</h5>
+                            <p>{{user.description}}</p>
+                            <div class="participation-meta">
+                                <span><i class="fas  fa-university"></i>{{ user.college }}</span>
+                                <span><i class="fas fa-graduation-cap"></i>{{user.course}} -</span>
+                                <span>{{user.year}} Student</span>
+                            </div>
+                        </div>
+                  </a>
+              </div>
+            {% endfor %}
+        {% else %}
+          <p>No Participant Found.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+    <div class="container">
+        <div class="footer-grid">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+                <h4>TechHub</h4>
+                <p>
+                    Discover hackathons, workshops, meetups, and bootcamps.
+                    Learn, build, and grow with the tech community.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Events -->
+            <div class="footer-col">
+                <h6>Events</h6>
+                <ul>
+                    <li><a href="#">Hackathons</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Meetups</a></li>
+                    <li><a href="#">Bootcamps</a></li>
+                </ul>
+            </div>
+
+            <!-- Community -->
+            <div class="footer-col">
+                <h6>Community</h6>
+                <ul>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Developers</a></li>
+                    <li><a href="#">Organizers</a></li>
+                    <li><a href="#">Partners</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-col">
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h6>Support</h6>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2026 EventIQ. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}
+
+
+

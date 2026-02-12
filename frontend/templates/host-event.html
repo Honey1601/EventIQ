@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- PAGE HEADER -->
+<section class="container host-event-header">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h1 class="fw-bold">Host Your Event</h1>
+            <p class="text-muted">Create amazing tech events and connect with the community</p>
+        </div>
+        <div class="col-lg-4 text-end">
+            <div class="host-stats">
+                <div class="stat-item">
+                    <strong>2,500+</strong>
+                    <span>Events Hosted</span>
+                </div>
+                <div class="stat-item">
+                    <strong>50K+</strong>
+                    <span>Participants</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-8">
+            <form id="hostEventForm" class="host-event-form" method="POST">
+
+                <!-- Event Title -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Event Title</label>
+                    <input type="text" name="title" class="form-control techhub-input" required>
+                </div>
+
+                <!-- Event Type -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Event Type</label>
+                    <select name="event_type" class="form-control techhub-input" required>
+                        <option value="">Select event type</option>
+                        <option value="hackathon">Hackathon</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="meetup">Meetup</option>
+                        <option value="bootcamp">Bootcamp</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Event Description</label>
+                    <textarea name="description" rows="4" class="form-control techhub-input" required></textarea>
+                </div>
+
+                <!-- Date Time -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Start Date & Time</label>
+                        <input type="datetime-local" name="start_datetime" class="form-control techhub-input" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">End Date & Time</label>
+                        <input type="datetime-local" name="end_datetime" class="form-control techhub-input" required>
+                    </div>
+                </div>
+
+                <!-- HACKATHON TIMELINE (ONLY FOR HACKATHON) -->
+                <div id="hackathonTimeline" style="display: none;">
+
+                    <!-- Submission Period -->
+                    <div class="form-section">
+                        <h4 class="section-title">Submission Period</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Submission Start Date</label>
+                                <input type="date" name="submission_start_date"
+                                       class="form-control techhub-input">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Submission End Date</label>
+                                <input type="date" name="submission_end_date"
+                                       class="form-control techhub-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Judging Period -->
+                    <div class="form-section">
+                        <h4 class="section-title">Judging Period</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Judging Start Date</label>
+                                <input type="date" name="judging_start_date"
+                                       class="form-control techhub-input">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Judging End Date</label>
+                                <input type="date" name="judging_end_date"
+                                       class="form-control techhub-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Winner Announcement -->
+                    <div class="form-section">
+                        <h4 class="section-title">Winner Announcement</h4>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Announcement Date</label>
+                            <input type="date" name="winner_announcement_date"
+                                   class="form-control techhub-input">
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- Format -->
+                <div class="form-section">
+                    <h4 class="section-title mx-auto  ">Location & Format</h4>
+
+                    <div class="format-options mb-3 d-flex justify-content-around ">
+                        <label class="format-option w-50">
+                            <input type="radio" name="format" value="online"  required>
+                            <span class="format-card">
+                                <i class="fas fa-laptop"></i>
+                                <strong>Online</strong>
+                                <small>Virtual event</small>
+                            </span>
+                        </label>
+
+                        <label class="format-option w-50">
+                            <input type="radio" name="format" value="offline" required>
+                            <span class="format-card">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <strong>In-Person</strong>
+                                <small>Physical venue</small>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="location-details" id="locationDetails" style="display:none;">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">State</label>
+                                <input type="text" name="state" class="form-control techhub-input">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">City</label>
+                                <input type="text" name="city" class="form-control techhub-input">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Address</label>
+                            <textarea name="location" rows="2" class="form-control techhub-input"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="online-details" id="onlineDetails" style="display: none;">
+                        <div class="mb-3">
+                            <label class="form-label">Platform</label>
+                            <select name="platform" class="form-control techhub-input">
+                                <option value="">Select Platform</option>
+                                <option value="zoom">Zoom</option>
+                                <option value="teams">Microsoft Teams</option>
+                                <option value="meet">Google Meet</option>
+                                <option value="discord">Discord</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Fee -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Registration Fee (₹)</label>
+                    <input type="number" name="registration_fee" value="0" class="form-control techhub-input">
+                </div>
+
+                <!-- Prizes -->
+                <div class="form-section" id="prizesSection" style="display: none;">
+                    <h4 class="section-title">Prizes & Rewards</h4>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label>1st Prize</label>
+                            <input type="number" name="first_prize" class="form-control techhub-input">
+                        </div>
+                        <div class="col-md-4">
+                            <label>2nd Prize</label>
+                            <input type="number" name="second_prize" class="form-control techhub-input">
+                        </div>
+                        <div class="col-md-4">
+                            <label>3rd Prize</label>
+                            <input type="number" name="third_prize" class="form-control techhub-input">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Other Rewards</label>
+                        <textarea name="other_rewards" rows="2" class="form-control techhub-input"></textarea>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Required Skills</label>
+                    <div class="row">
+                        {% for skill in ["JavaScript","Python","Java","C/C++","React","Flask","Machine Learning","Blockchain"] %}
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="skills" value="{{ skill }}">
+                                <label class="form-check-label">{{ skill }}</label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Skill Level -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Skill Level</label>
+                    <select name="skill_level" class="form-control techhub-input">
+                        <option value="any">Any Level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <!-- Max Participants -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Maximum Participants</label>
+                    <input type="number" name="max_participants" class="form-control techhub-input">
+                </div>
+
+                <button type="submit" class="btn host-submit-btn w-100">Publish Event</button>
+            </form>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-4">
+            <div class="host-sidebar">
+
+                <!-- TIPS -->
+                <div class="sidebar-card">
+                    <h5><i class="fas fa-lightbulb"></i> Tips for Success</h5>
+                    <ul class="tips-list">
+                        <li>Write a clear, engaging event description</li>
+                        <li>Set realistic participant limits</li>
+                        <li>Provide detailed prerequisites</li>
+                        <li>Include attractive prizes if possible</li>
+                        <li>Plan for both online and offline engagement</li>
+                    </ul>
+                </div>
+
+                <!-- REVIEW PROCESS -->
+                <div class="sidebar-card">
+                    <h5><i class="fas fa-clock"></i> Review Process</h5>
+                    <div class="review-steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div>
+                                <strong>Submit</strong>
+                                <small>Your event details</small>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div>
+                                <strong>Review</strong>
+                                <small>24-48 hours</small>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <div>
+                                <strong>Publish</strong>
+                                <small>Go live on platform</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUPPORT -->
+                <div class="sidebar-card">
+                    <h5><i class="fas fa-headset"></i> Need Help?</h5>
+                    <p>Our team is here to help you create amazing events.</p>
+                    <a href="#" class="support-btn">Contact Support</a>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+    <div class="container">
+        <div class="footer-grid">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+                <h4>TechHub</h4>
+                <p>
+                    Discover hackathons, workshops, meetups, and bootcamps.
+                    Learn, build, and grow with the tech community.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Events -->
+            <div class="footer-col">
+                <h6>Events</h6>
+                <ul>
+                    <li><a href="#">Hackathons</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Meetups</a></li>
+                    <li><a href="#">Bootcamps</a></li>
+                </ul>
+            </div>
+
+            <!-- Community -->
+            <div class="footer-col">
+                <h6>Community</h6>
+                <ul>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Developers</a></li>
+                    <li><a href="#">Organizers</a></li>
+                    <li><a href="#">Partners</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-col">
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h6>Support</h6>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2026 EventIQ. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+
+{% endblock %}
+{% block scripts %}
+<script src="static/js/host-event.js"></script>
+{% endblock %}
+
+
+

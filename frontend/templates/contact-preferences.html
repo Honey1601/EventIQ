@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}contact-pref | TechHub{% endblock %}
+
+{% block content %}
+
+<!-- HEADER -->
+<section class="container contact-header">
+    <h1>Stay in the Loop </h1>
+    <p>Tell us what you want to learn about — we’ll notify you.</p>
+</section>
+
+<!-- FORM -->
+<section class="container contact-form-section">
+    <form class="contact-form">
+
+        <!-- Email -->
+        <div class="mb-4">
+            <label class="form-label">Email Address</label>
+            <input
+                    type="email"
+                    class="form-control techhub-input"
+                    placeholder="you@example.com"
+                    required
+            />
+        </div>
+
+        <!-- Event Types -->
+        <div class="mb-4">
+            <label class="form-label">What updates do you want?</label>
+
+            <div class="option-grid">
+
+                <label class="option-card">
+                    <input type="checkbox" value="hackathon" hidden/>
+                    <span>Hackathons</span>
+                </label>
+
+                <label class="option-card">
+                    <input type="checkbox" value="workshop"/>
+                    <span>Workshops</span>
+                </label>
+
+                <label class="option-card">
+                    <input type="checkbox" value="meetup"/>
+                    <span>Meet-ups</span>
+                </label>
+
+                <label class="option-card">
+                    <input type="checkbox" value="bootcamp"/>
+                    <span>Bootcamps</span>
+                </label>
+
+                <label class="option-card full">
+                    <input type="checkbox" value="all"/>
+                    <span>All Events</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Technologies -->
+        <div class="mb-4">
+            <label class="form-label">Preferred Technologies / Languages</label>
+
+            <div class="tag-selector">
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>Python</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>Java</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>JavaScript</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>AI / ML</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>Web Development</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>Blockchain</span>
+                </label>
+
+                <label class="tech-tag">
+                    <input type="checkbox"/>
+                    <span>Cloud</span>
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- Frequency -->
+        <div class="mb-4">
+            <label class="form-label">How often should we notify you?</label>
+            <select class="form-control techhub-input">
+                <option>Weekly</option>
+                <option>Bi-weekly</option>
+                <option>Only important updates</option>
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="contact-submit-btn">
+            Save Preferences
+        </button>
+
+    </form>
+</section>
+
+
+
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}
+
+
+

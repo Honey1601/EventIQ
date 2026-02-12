@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- WORKSHOPS HEADER -->
+<section class="container mt-5">
+  <div class="text-center">
+    <h1 class="fw-bold">All Workshops</h1>
+    <p>Learn from industry experts and enhance your skills</p>
+  </div>
+</section>
+
+<!-- SEARCH AND FILTERS -->
+<section class="container mt-4">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <input type="text" id="searchInput" class="form-control search-input1" placeholder="Search workshops...">
+    </div>
+    <div class="col-md-3">
+      <select id="priceFilter" class="form-select">
+        <option value="">All Prices</option>
+        <option value="Free">Free</option>
+        <option value="Paid">Paid</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select id="skillFilter" class="form-select">
+        <option value="">All Skills</option>
+        <option value="React">React</option>
+        <option value="Machine Learning">Machine Learning</option>
+        <option value="DevOps">DevOps</option>
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select id="instructorFilter" class="form-select">
+        <option value="">All Instructors</option>
+        <option value="Sarah Johnson">Sarah Johnson</option>
+        <option value="Dr. Alex Chen">Dr. Alex Chen</option>
+        <option value="Mike Rodriguez">Mike Rodriguez</option>
+        <option value="Jane Doe">Jane Doe</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- WORKSHOPS GRID -->
+<section class="container mt-4">
+  <div class="row g-4" id="workshopsContainer">
+    <!-- Workshop cards will be populated by JS -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h4>TechHub</h4>
+        <p>
+          Discover hackathons, workshops, meetups, and bootcamps.
+          Learn, build, and grow with the tech community.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Events -->
+      <div class="footer-col">
+        <h6>Events</h6>
+        <ul>
+          <li><a href="hackathon.html">Hackathons</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="meetup.html">Meetups</a></li>
+          <li><a href="bootcamp.html">Bootcamps</a></li>
+        </ul>
+      </div>
+      <!-- Community -->
+      <div class="footer-col">
+        <h6>Community</h6>
+        <ul>
+          <li><a href="#">Students</a></li>
+          <li><a href="#">Developers</a></li>
+          <li><a href="#">Organizers</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <!-- Resources -->
+      <div class="footer-col">
+        <h6>Resources</h6>
+        <ul>
+          <li><a href="#">Blogs</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+      <!-- Support -->
+      <div class="footer-col">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2026 EventIQ. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="static/js/workshop.js"></script>
+{% endblock %}
+
+

@@ -1,0 +1,456 @@
+
+{% extends "base.html" %}
+
+{% block title %}Index | TechHub{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="container hero mt-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <h1 class="hero-title ">
+                Connecting <br>Colleges & Recruiters
+            </h1>
+
+            <p class="hero-subtitle mt-3">
+                A unified platform for students, institutions, and companies to grow together.
+            </p>
+
+            <div class="hero-actions mt-4">
+                <a href="" class="hero-btn primary ">Explore Opportunities</a>
+                <a href="/signup" class="hero-btn secondary mt-3">Join Now</a>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 text-center">
+            <img
+                    src="../static/images/hero2.png"
+                    class="img-fluid hero-img"
+                    alt="Hero Illustration"
+            >
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURED CAROUSEL -->
+<section class="container mt-5">
+    <div class="carousel-box">
+
+        <button class="carousel-arrow left" onclick="slideCarousel(-1)">‹</button>
+
+        <div class="carousel-viewport">
+            <div class="carousel-track" id="carouselTrack">
+
+                <div class="carousel-card">
+                    <div class="image-placeholder">Image</div>
+                    <p>Featured Hackathon on AI & Innovation.</p>
+                </div>
+
+                <div class="carousel-card">
+                    <div class="image-placeholder">Image</div>
+                    <p>Upcoming Bootcamp focused on Full-Stack.</p>
+                </div>
+
+                <div class="carousel-card">
+                    <div class="image-placeholder">Image</div>
+                    <p>AI / ML Meetup – Industry Experts.</p>
+                </div>
+
+                <div class="carousel-card">
+                    <div class="image-placeholder">Image</div>
+                    <p>Advanced Web Dev Bootcamp.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <button class="carousel-arrow right" onclick="slideCarousel(1)">›</button>
+
+    </div>
+</section>
+
+
+<!-- DASHBOARD CARDS -->
+<section class="container mt-5">
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="soft-card_I">
+                <h6 class="fw-bold">Total Opportunities</h6>
+                <h2 class="fw-bold">12,480+</h2>
+                <span class="badge bg-success-subtle text-success">+18%</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="soft-card_I">
+                <h6 class="fw-bold">Active Students</h6>
+                <h2 class="fw-bold">2.4M+</h2>
+                <span class="badge bg-warning-subtle text-warning">Growing</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="soft-card_I">
+                <h6 class="fw-bold">Hiring Companies</h6>
+                <h2 class="fw-bold">18K+</h2>
+                <span class="badge bg-primary-subtle text-primary">Verified</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- TRUSTED BY INDUSTRY -->
+<section class="container mt-5">
+    <div class="trusted-box">
+        <h5 class="section-title">Trusted by Industry</h5>
+
+        <div class="industry-logos">
+            <img src="../static/images/directus.svg" alt="Google"/>
+            <img src="../static/images/handshake_protocol.svg" alt="Microsoft"/>
+            <img src="../static/images/lightburn.svg" alt="Amazon"/>
+            <img src="../static/images/sparkar.svg" alt="Meta"/>
+            <img src="../static/images/ups.svg" alt="TCS"/>
+        </div>
+
+    </div>
+</section>
+
+<div class="techhub-divider dotted"></div>
+
+
+<!-- LOCAL MEETUPS -->
+<section class="container meetups-section">
+    <div class="meetups-header">
+        <div class="meetups-title-row">
+            <div>
+                <h2>Local Meetups</h2>
+                <p>Connect with like-minded developers in your area</p>
+            </div>
+
+            <a href="/meetup" class="view-more-btn">View More →</a>
+        </div>
+    </div>
+
+    <div class="row g-4" id="meetupsContainer">
+        <!-- Meetup cards injected by JS -->
+    </div>
+
+</section>
+
+
+<!-- UPCOMING HACKATHONS -->
+<section class="container hackathons-section">
+    <div class="hackathons-header">
+        <div class="hackathons-title-row">
+            <div>
+                <h2>Upcoming Hackathons</h2>
+                <p>Compete, innovate, and win amazing prizes</p>
+            </div>
+
+            <a href=" /hackathon " class="view-more-btn">View More →</a>
+        </div>
+    </div>
+
+    <!-- Dynamic Cards Will Load Here -->
+    <div class="row g-4" id="upcomingHackathons">
+
+    </div>
+</section>
+
+
+<!-- FEATURED WORKSHOPS -->
+<section class="container workshops-section">
+    <div class="workshops-header">
+        <div class="workshops-title-row">
+            <div>
+                <h2>Featured Workshops</h2>
+                <p>Learn from industry experts and enhance your skills</p>
+            </div>
+
+            <a href="/workshop" class="view-more-btn">View More →</a>
+        </div>
+    </div>
+
+    <div class="row g-4" id="workshopsContainer">
+        <!-- Workshop cards injected by JS -->
+    </div>
+
+</section>
+
+
+<!-- FEATURED WORKSHOPS -->
+<section class="container workshops-section">
+    <div class="workshops-header">
+        <div class="workshops-title-row">
+            <div>
+                <h2>Featured Bootcamp</h2>
+                <p>Learn from industry experts and enhance your skills</p>
+            </div>
+
+            <a href="/bootcamp" class="view-more-btn">View More →</a>
+        </div>
+    </div>
+
+    <div class="row g-4" id="bootcampContainer">
+        <!-- Bootcamp cards injected by JS -->
+    </div>
+
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="container testimonials-section">
+    <div class="meetups-header">
+        <div class="meetups-title-row">
+            <div>
+                <h2>What Our Users Say</h2>
+                <p>Real experiences from developers and students in our community</p>
+            </div>
+
+            <a href="reviews.html" class="view-more-btn">Review Us →</a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Review 1 -->
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    TechHub helped me discover my first hackathon.
+                    The platform is clean, fast, and super easy to use.
+                </p>
+
+                <div class="testimonial-user">
+                    <strong>Rohit Sharma</strong>
+                    <span>Computer Science Student</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    I found amazing workshops and local meetups here.
+                    Perfect platform for developers who want to grow.
+                </p>
+
+                <div class="testimonial-user">
+                    <strong>Ananya Verma</strong>
+                    <span>Frontend Developer</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    The hackathon listings are very well organized.
+                    This feels like a proper tech community platform.
+                </p>
+
+                <div class="testimonial-user">
+                    <strong>Arjun Patel</strong>
+                    <span>Full Stack Engineer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOST EVENT SHOWCASE -->
+<section class="container host-event-showcase">
+    <div class="host-showcase-wrapper">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="host-content">
+                    <h2>Want to Host an Event?</h2>
+                    <p>Create amazing tech events and connect with thousands of talented students and developers in our
+                        community.</p>
+
+                    <div class="host-features">
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>Reach 50K+ Students</strong>
+                                <small>Connect with talented developers</small>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="fas fa-calendar"></i>
+                            <div>
+                                <strong>Easy Event Management</strong>
+                                <small>Simple tools to organize events</small>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <strong>Showcase Your Brand</strong>
+                                <small>Get visibility in tech community</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="host-actions">
+                        <a href="/host-event" class="btn-host-event">Host an Event</a>
+                        <a href="#" class="btn-learn-more">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="host-stats-visual">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <strong>2,500+</strong>
+                            <span>Events Hosted</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <strong>50K+</strong>
+                            <span>Participants</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <strong>500+</strong>
+                            <span>Organizations</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <strong>4.8/5</strong>
+                            <span>Average Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STAY UPDATED -->
+<section class="container stay-updated-section">
+    <div class="stay-updated-box">
+        <h3>Stay Updated</h3>
+        <p>Get notified about upcoming events, workshops, and opportunities</p>
+
+        <form class="stay-updated-form">
+            <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+            />
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+    <div class="container">
+        <div class="footer-grid">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+                <h4>EventIQ</h4>
+                <p>
+                    Discover hackathons, workshops, meetups, and bootcamps.
+                    Learn, build, and grow with the tech community.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Events -->
+            <div class="footer-col">
+                <h6>Events</h6>
+                <ul>
+                    <li><a href="#">Hackathons</a></li>
+                    <li><a href="#">Workshops</a></li>
+                    <li><a href="#">Meetups</a></li>
+                    <li><a href="#">Bootcamps</a></li>
+                </ul>
+            </div>
+
+            <!-- Community -->
+            <div class="footer-col">
+                <h6>Community</h6>
+                <ul>
+                    <li><a href="#">Students</a></li>
+                    <li><a href="#">Developers</a></li>
+                    <li><a href="#">Organizers</a></li>
+                    <li><a href="#">Partners</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-col">
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Support -->
+            <div class="footer-col">
+                <h6>Support</h6>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <p>© 2026 EventIQ. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/index.js"></script>
+
+
+{% endblock %}
+
+

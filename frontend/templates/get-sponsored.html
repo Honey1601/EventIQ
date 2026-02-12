@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- HEADER -->
+<section class="container sponsor-header">
+    <h1>Get Sponsored</h1>
+    <p>Promote your event on our homepage carousel</p>
+</section>
+
+<!-- FORM -->
+<section class="container sponsor-form-section">
+    <form class="sponsor-form">
+
+        <!-- Timeline -->
+        <div class="mb-4">
+            <label class="form-label">Promotion Timeline</label>
+
+            <div class="row g-3">
+                <!-- Start Date -->
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">Start Date</label>
+                    <input
+                            type="date"
+                            class="form-control techhub-input"
+                            id="startDate"
+                            required
+                    />
+                </div>
+
+                <!-- End Date -->
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">End Date</label>
+                    <input
+                            type="date"
+                            class="form-control techhub-input"
+                            id="endDate"
+                            required
+                    />
+                </div>
+            </div>
+
+            <small class="text-muted">
+                Your promotion will be active between these dates.
+            </small>
+        </div>
+
+
+        <!-- Image Upload -->
+        <div class="mb-4">
+            <label class="form-label">Carousel Image</label>
+            <input
+                    type="file"
+                    class="form-control techhub-input"
+                    accept="image/*"
+                    id="imageUpload"
+                    required
+            />
+            <div class="image-preview mt-3" id="imagePreview">
+                Image preview will appear here
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+            <label class="form-label">Promotion Description</label>
+            <textarea
+                    rows="4"
+                    class="form-control techhub-input"
+                    placeholder="Describe your event or brand..."
+                    maxlength="180"
+                    required
+            ></textarea>
+            <small class="text-muted">Max 180 characters</small>
+        </div>
+
+        <!-- Slot Info -->
+        <div class="slot-info mb-4">
+            <strong>Available Sponsored Slots:</strong>
+            <span id="slotCount">3 / 6</span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="sponsor-submit-btn">
+            Submit for Sponsorship
+        </button>
+    </form>
+</section>
+
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- PAGE HEADER -->
+<section class="container review-header">
+    <h1>Share Your Experience</h1>
+    <p>Your feedback helps the community grow </p>
+</section>
+
+<!-- REVIEW FORM -->
+<section class="container review-form-section">
+    <form class="review-form">
+
+        <!-- Name -->
+        <div class="mb-4">
+            <label class="form-label">Your Name</label>
+            <input
+                    type="text"
+                    class="form-control techhub-input"
+                    placeholder="Enter your name"
+                    required
+            />
+        </div>
+
+        <!-- Role -->
+        <div class="mb-4">
+            <label class="form-label">Your Role</label>
+            <input
+                    type="text"
+                    class="form-control techhub-input"
+                    placeholder="e.g. Student, Developer, Organizer"
+                    required
+            />
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-4 rating-field">
+            <label class="form-label">Rating</label>
+
+            <!-- Stars -->
+            <div class="rating-stars" id="ratingStars">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+            </div>
+
+            <!-- Range Slider -->
+            <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    value="3"
+                    id="ratingRange"
+            />
+
+            <!-- Value -->
+            <div class="rating-value">
+                <strong id="ratingValue">3</strong> / 5
+            </div>
+        </div>
+
+
+        <!-- Review -->
+        <div class="mb-4">
+            <label class="form-label">Your Review</label>
+            <textarea
+                    rows="5"
+                    class="form-control techhub-input"
+                    placeholder="Write your experience here..."
+                    required
+            ></textarea>
+        </div>
+
+        <!-- Anonymous Toggle -->
+        <div class="anonymous-toggle">
+            <label class="toggle-label">
+                <input type="checkbox" id="anonymousToggle"/>
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-text">Submit as Anonymous</span>
+        </div>
+
+
+        <!-- Submit -->
+        <button type="submit" class="review-submit-btn">
+            Submit Review
+        </button>
+
+    </form>
+</section>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const toggle = document.getElementById("anonymousToggle");
+    const nameInput = document.querySelector(
+        'input[placeholder="Enter your name"]'
+    );
+    const roleInput = document.querySelector(
+        'input[placeholder="e.g. Student, Developer, Organizer"]'
+    );
+
+    toggle.addEventListener("change", () => {
+        if (toggle.checked) {
+            nameInput.value = "Anonymous";
+            roleInput.value = "Community Member";
+            nameInput.disabled = true;
+            roleInput.disabled = true;
+        } else {
+            nameInput.value = "";
+            roleInput.value = "";
+            nameInput.disabled = false;
+            roleInput.disabled = false;
+        }
+    });
+
+
+    const range = document.getElementById("ratingRange");
+    const stars = document.querySelectorAll("#ratingStars span");
+    const valueText = document.getElementById("ratingValue");
+
+    function updateRating(val) {
+        valueText.textContent = val;
+        document.documentElement.style.setProperty("--val", val);
+
+        stars.forEach((star, index) => {
+            star.classList.toggle("active", index < val);
+        });
+    }
+
+    range.addEventListener("input", (e) => {
+        updateRating(e.target.value);
+    });
+
+    // Init
+    updateRating(range.value);
+
+
+</script>
+
+{% endblock %}
+
+
+

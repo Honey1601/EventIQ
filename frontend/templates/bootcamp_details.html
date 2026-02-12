@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+
+{% block title %}Hackathons | TechHub{% endblock %}
+
+{% block content %}
+<!-- BOOTCAMP HERO -->
+<section class="container hero mt-5">
+  <div class="row align-items-center">
+    <div class="col-lg-8">
+      <h1 class="fw-bold display-5">{{ event.title }}</h1>
+      <p class="text-muted mt-3">{{ event.description }}</p>
+      <div class="mt-4">
+        <span class="interactive-badge date-badge"><i class="bi bi-calendar-event me-1"></i>{{ event.start_date }} - {{ event.end_date }}</span>
+        <span class="interactive-badge location-badge"><i class="bi bi-globe me-1"></i>{{ event.mode }}</span>
+        <span class="interactive-badge participants-badge"><i class="bi bi-people-fill me-1"></i>Limited to {{ event.max_participants }} students</span>
+        <span class="interactive-badge">Attending {{event.attending}} students</span>
+      </div>
+      <div class="countdown-timer">
+        <h5>Enrollment Opens In</h5>
+        <div class="countdown-display">
+          <div class="countdown-item">
+            <span id="days">--</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hours">--</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes">--</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds">--</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+
+        {# ===============================
+           PARTICIPATION BUTTON
+           =============================== #}
+        {% if already_registered %}
+          <button class="register-btn" disabled>
+            <span>✔ Already Registered</span>
+          </button>
+
+        {% elif event.max_participants and event.attending >= event.max_participants %}
+          <button class="register-btnr" disabled>
+            <span>Event Full</span>
+          </button>
+
+        {% else %}
+          <form method="POST" action="{{ url_for('participate_event', event_id=event.id) }}">
+            <button class="register-btn">
+              <span>
+                {% if event.registration_fee and event.registration_fee > 0 %}
+                  <strong>Registration Fee:</strong> ₹{{ event.registration_fee }}
+                {% else %}
+                  <strong>Free Event</strong>
+                {% endif %}
+              </span>
+            </button>
+          </form>
+        {% endif %}
+
+<!--        <button class="register-btn">-->
+<!--            -->
+<!--        </button>-->
+        <a class="btn btn-outline-dark rounded-pill px-4 ms-2" href="/bootcamp">Back to Bootcamps</a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center">
+      <div class="image-placeholder" style="height: 200px;">
+        {% if event.banner_image %}
+          <img src="{{ url_for('static', filename='uploads/company_logos/' + event.banner_image) }}"
+               alt="Bootcamp Image"
+               class="img-fluid w-75"
+          >
+        {% else %}
+          <img src="" alt="Bootcamp Image">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- BOOTCAMP OVERVIEW -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-info-circle me-2"></i>Bootcamp Overview</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <p><i class="bi bi-clock me-2"></i><strong>Duration:</strong> 12 weeks (Full-time)</p>
+        <p><i class="bi bi-calendar me-2"></i><strong>Start Date:</strong>{{ event.start_date }}</p>
+        <p><i class="bi bi-globe me-2"></i><strong>Format:</strong> {{event.mode}} Classes</p>
+      </div>
+      <div class="col-md-6">
+        <p><i class="bi bi-people me-2"></i><strong>Class Size:</strong> Max {{event.max_participants}} students</p>
+        <p><i class="bi bi-laptop me-2"></i><strong>Prerequisites:</strong> Basic programming knowledge</p>
+        <p><i class="bi bi-certificate me-2"></i><strong>Certification:</strong> Industry-recognized certificate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-book me-2"></i>Curriculum Overview</h4>
+    <div class="timeline">
+      <div class="timeline-item">
+        <i class="bi bi-code-slash me-2"></i><strong>Weeks 1-3: Frontend Fundamentals</strong>
+        <br><small class="text-muted">HTML, CSS, JavaScript, React, Responsive Design</small>
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-server me-2"></i><strong>Weeks 4-6: Backend Development</strong>
+        <br><small class="text-muted">Node.js, Express, MongoDB, REST APIs, Authentication</small>
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-gear me-2"></i><strong>Weeks 7-9: Advanced Topics</strong>
+        <br><small class="text-muted">DevOps, Testing, Performance, Security, Deployment</small>
+      </div>
+      <div class="timeline-item">
+        <i class="bi bi-briefcase me-2"></i><strong>Weeks 10-12: Capstone Project</strong>
+        <br><small class="text-muted">Real-world application development, Portfolio building</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-lightbulb me-2"></i>What You'll Learn</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Modern JavaScript (ES6+)</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>React & Redux</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Node.js & Express</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>MongoDB & SQL</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>RESTful API Design</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Git & Version Control</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Testing & Debugging</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Deployment & DevOps</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Agile Development</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Soft Skills & Interview Prep</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-people me-2"></i>Expert Instructors</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center mb-3">
+          <div class="me-3">
+            <div style="width: 50px; height: 50px; background: var(--blue-electric); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">TT</div>
+          </div>
+          <div>
+            <h6 class="mb-1">TechHub Team</h6>
+            <p class="mb-1 text-muted small">Industry veterans with 10+ years experience</p>
+            <div>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+              <i class="bi bi-star-fill text-warning"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <p><i class="bi bi-award me-2"></i><strong>Expertise:</strong> Full-stack development, system architecture</p>
+        <p><i class="bi bi-building me-2"></i><strong>Background:</strong> Former tech leads at FAANG companies</p>
+        <p><i class="bi bi-chat-quote me-2"></i><strong>Teaching Style:</strong> Hands-on, project-based learning</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER SUPPORT -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-briefcase me-2"></i>Career Support & Outcomes</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Resume & portfolio review</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Mock interviews & coding challenges</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Job search assistance</li>
+          <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Networking opportunities</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <div class="text-center">
+          <div style="font-size: 3rem; color: var(--blue-strong); margin-bottom: 10px;">95%</div>
+          <p><strong>Job Placement Rate</strong></p>
+          <small class="text-muted">Within 6 months of graduation</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING & PAYMENT -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-cash me-2"></i>Pricing & Payment Options</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 class="text-primary">$2,999</h5>
+        <p class="text-muted">Full payment upfront</p>
+        <ul class="list-unstyled">
+          <li class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>All course materials included</li>
+          <li class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>Certificate of completion</li>
+          <li class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>Career support services</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h6>Payment Plans Available</h6>
+        <p><i class="bi bi-credit-card me-2"></i>$500 deposit + 8 monthly payments of $312.50</p>
+        <p><i class="bi bi-calendar-event me-2"></i>Flexible payment schedules</p>
+        <p><i class="bi bi-shield-check me-2"></i>Money-back guarantee (first 7 days)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT BOOTCAMP -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-info-circle me-2"></i>About This Bootcamp</h4>
+    <p><i class="bi bi-lightbulb me-2 text-warning"></i>Our Full-Stack Web Development Bootcamp is designed to take you from beginner to job-ready developer in just 12 weeks. Through intensive, hands-on training, you'll master both frontend and backend technologies, building real-world projects that showcase your skills to employers.</p>
+    <p>With small class sizes and personalized mentorship, you'll receive the attention and support you need to succeed. Our comprehensive curriculum covers everything from HTML/CSS to advanced topics like DevOps and system architecture.</p>
+  </div>
+</section>
+
+<!-- FAQs -->
+<section class="container mt-5">
+  <div class="soft-card">
+    <h4><i class="bi bi-question-circle me-2"></i>FAQs</h4>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            <i class="bi bi-clock me-2"></i>Is this bootcamp full-time?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Yes, this is an intensive full-time program requiring 40+ hours per week commitment.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            <i class="bi bi-code-slash me-2"></i>Do I need prior coding experience?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Basic programming knowledge is helpful but not required. We start from fundamentals.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            <i class="bi bi-briefcase me-2"></i>What kind of jobs can I get after?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            <i class="bi bi-check-circle text-success me-2"></i>Full-stack developer, frontend developer, backend developer, software engineer roles.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="techhub-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <h4>EventIQ</h4>
+        <p>
+          Discover hackathons, workshops, meetups, and bootcamps.
+          Learn, build, and grow with the tech community.
+        </p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Events -->
+      <div class="footer-col">
+        <h6>Events</h6>
+        <ul>
+          <li><a href="hackathon.html">Hackathons</a></li>
+          <li><a href="workshop.html">Workshops</a></li>
+          <li><a href="meetup.html">Meetups</a></li>
+          <li><a href="bootcamp.html">Bootcamps</a></li>
+        </ul>
+      </div>
+      <!-- Community -->
+      <div class="footer-col">
+        <h6>Community</h6>
+        <ul>
+          <li><a href="#">Students</a></li>
+          <li><a href="#">Developers</a></li>
+          <li><a href="#">Organizers</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <!-- Resources -->
+      <div class="footer-col">
+        <h6>Resources</h6>
+        <ul>
+          <li><a href="#">Blogs</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+      <!-- Support -->
+      <div class="footer-col">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>© 2026 EventIQ. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{% endblock %}
+{% block scripts %}
+<script>
+// Countdown Timer
+function updateCountdown() {
+  const targetDate = new Date('2024-01-15T00:00:00').getTime(); // Enrollment opens date
+  const now = new Date().getTime();
+  const difference = targetDate - now;
+
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  } else {
+    document.querySelector('.countdown-timer h5').textContent = 'Enrollment Open!';
+    document.querySelector('.countdown-display').style.display = 'none';
+  }
+}
+
+// Update countdown every second
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Add click handlers for interactive elements
+document.querySelectorAll('.skill-badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 150);
+    }, 100);
+  });
+});
+
+document.querySelectorAll('.interactive-badge').forEach(badge => {
+  badge.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 150);
+    }, 100);
+  });
+});
+</script>
+{% endblock %}
+
